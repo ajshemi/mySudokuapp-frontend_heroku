@@ -462,7 +462,7 @@ gridContainer.addEventListener("click", (event) => {
 
   if (event.target.tagName === "INPUT" && event.target.type === "submit") {
     event.preventDefault();
-    submitButton.style.display = "none";
+    // submitButton.style.display = "none";
     clearInterval(interval);
     userNameForm.style.display = "block";
     let game_number = parseInt(
