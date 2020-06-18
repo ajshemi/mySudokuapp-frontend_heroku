@@ -462,6 +462,7 @@ gridContainer.addEventListener("click", (event) => {
 
   if (event.target.tagName === "INPUT" && event.target.type === "submit") {
     event.preventDefault();
+    submitButton.style.display = "none";
     clearInterval(interval);
     userNameForm.style.display = "block";
     let game_number = parseInt(
@@ -471,6 +472,7 @@ gridContainer.addEventListener("click", (event) => {
     // console.log(obj)
     // debugger
     // event.target.reset()
+
     //check if any element of the array of arrays is falsey
     let targetForm = event.target.parentElement.querySelector("form");
     let obj1 = {};
@@ -541,6 +543,8 @@ gridContainer.addEventListener("click", (event) => {
           scoreOutput(scoreObject);
         }); //gameScore=>console.log(gameScore))
     });
+
+    //  submitButton.style.display="block"
   }
 
   if (event.target.tagName === "BUTTON" && event.target.innerText === "Reset") {
