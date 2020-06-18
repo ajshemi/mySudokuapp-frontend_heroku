@@ -334,7 +334,7 @@ submitInputElement.type = "submit";
 submitInputElement.value = "Submit";
 submitInputElement.style = "margin-left:10%;margin-bottom:2%;";
 submitInputElement.classList = "ui button active";
-// submitInputElement.style.display="none"
+submitInputElement.style.display = "block";
 // let newFormElement=document.querySelector("form")
 // newFormElement.append(submitInputElement)
 
@@ -491,64 +491,65 @@ gridContainer.addEventListener("click", (event) => {
       console.log("not falsey");
       submitInputElement.style.display = "none";
       // submitButton.style.display = "none";
+      console.log(submitInputElement.style.display);
       clearInterval(interval);
       userNameForm.style.display = "block";
       let game_number = parseInt(
         event.target.parentElement.querySelector("form").id.split("-")[2]
       );
-    }
 
-    // sudokuChecker(outerArray) ? console.log("👎") : console.log(`👍`)
-    // console.log(`%c ${sudokuChecker(outerArray)}`,"color:blue")
+      // sudokuChecker(outerArray) ? console.log("👎") : console.log(`👍`)
+      // console.log(`%c ${sudokuChecker(outerArray)}`,"color:blue")
 
-    // debugger
-    // POST IS WORKING!
-
-    // debugger
-    // // console.log(gamePuzzle.id)
-    let time_elapsed;
-    fetch(`https://sodukubackendapi.herokuapp.com/games/${game_number}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        // difficulty: game_level,
-        game_array_start: outerArray,
-        game_array_end: outerArray,
-      }),
-    })
-      .then((response) => response.json())
-      .then((gameObject) => {
-        console.log(gameObject);
-        time_elapsed = gameObject.time_elapsed;
-        formCodeBlock(gameObject, gridContainer);
-      });
-    // newGame.style.display='block'
-    // event.target.reset()
-
-    //CODE BLOCK FOR SCORES
-    // let game_id=parseInt(event.target.parentElement.querySelector("form").id.split("-")[2])
-
-    userNameForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      userNameForm.style.display = "none";
       // debugger
-      let gamer_name = event.target.querySelector("input").value;
-      fetch(`https://sodukubackendapi.herokuapp.com/scores`, {
-        method: "POST",
+      // POST IS WORKING!
+
+      // debugger
+      // // console.log(gamePuzzle.id)
+      let time_elapsed;
+      fetch(`https://sodukubackendapi.herokuapp.com/games/${game_number}`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          gamer_name: gamer_name,
-          game_score: time_elapsed,
-          game_id: game_number,
-          game_pass: sudokuChecker(outerArray),
-          // game_score: time_passed
+          // difficulty: game_level,
+          game_array_start: outerArray,
+          game_array_end: outerArray,
         }),
       })
         .then((response) => response.json())
-        .then((scoreObject) => {
-          scoreOutput(scoreObject);
-        }); //gameScore=>console.log(gameScore))
-    });
+        .then((gameObject) => {
+          console.log(gameObject);
+          time_elapsed = gameObject.time_elapsed;
+          formCodeBlock(gameObject, gridContainer);
+        });
+      // newGame.style.display='block'
+      // event.target.reset()
+
+      //CODE BLOCK FOR SCORES
+      // let game_id=parseInt(event.target.parentElement.querySelector("form").id.split("-")[2])
+
+      userNameForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        userNameForm.style.display = "none";
+        // debugger
+        let gamer_name = event.target.querySelector("input").value;
+        fetch(`https://sodukubackendapi.herokuapp.com/scores`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            gamer_name: gamer_name,
+            game_score: time_elapsed,
+            game_id: game_number,
+            game_pass: sudokuChecker(outerArray),
+            // game_score: time_passed
+          }),
+        })
+          .then((response) => response.json())
+          .then((scoreObject) => {
+            scoreOutput(scoreObject);
+          }); //gameScore=>console.log(gameScore))
+      });
+    }
 
     //  submitButton.style.display="block"
   }
