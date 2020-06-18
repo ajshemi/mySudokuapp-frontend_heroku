@@ -334,7 +334,7 @@ submitInputElement.type = "submit";
 submitInputElement.value = "Submit";
 submitInputElement.style = "margin-left:10%;margin-bottom:2%;";
 submitInputElement.classList = "ui button active";
-submitInputElement.style.display = "block";
+// submitInputElement.style.display = "block";
 // let newFormElement=document.querySelector("form")
 // newFormElement.append(submitInputElement)
 
