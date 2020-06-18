@@ -3,7 +3,7 @@
 
 //falsey function
 function falsey(input) {
-  let array = [false, 0, "", null, undefined, NaN];
+  let array = [false, 0, "", null, undefined, NaN, {}];
   if (array.includes(input)) {
     return true;
   } else {
@@ -318,38 +318,39 @@ let formCodeBlock = function (gamePuzzle, gridContainer) {
     }
   }
 
-  //SUBMIT BUTTON
-  let submitInputElement = document.createElement("input");
-  submitInputElement.type = "submit";
-  submitInputElement.value = "Submit";
-  submitInputElement.style = "margin-left:10%;margin-bottom:2%;";
-  submitInputElement.classList = "ui button active";
-  // submitInputElement.style.display="none"
-  // let newFormElement=document.querySelector("form")
-  // newFormElement.append(submitInputElement)
-
-  //RESET BUTTON
-  let resetButton = document.createElement("button");
-  resetButton.classList = "ui button active";
-  resetButton.innerText = "Reset";
-  resetButton.style = "margin-bottom:2%";
-  // resetButton.style.display="none"
-
-  //SOME BUTTON
-  // let someButton=document.createElement('button')
-  // someButton.classList="ui button"
-  // someButton.innerText="9"
-
   // newFormElement.append(submitInputElement,resetButton)
   subDivElement.append(newFormElement);
   gridContainer.append(
     subDivElement,
-    lineBreak,
-    submitInputElement,
-    resetButton
+    lineBreak
+    // submitInputElement,
+    // resetButton
   );
   // console.log(gridContainer)
 };
+//SUBMIT BUTTON
+let submitInputElement = document.createElement("input");
+submitInputElement.type = "submit";
+submitInputElement.value = "Submit";
+submitInputElement.style = "margin-left:10%;margin-bottom:2%;";
+submitInputElement.classList = "ui button active";
+// submitInputElement.style.display="none"
+// let newFormElement=document.querySelector("form")
+// newFormElement.append(submitInputElement)
+
+//RESET BUTTON
+let resetButton = document.createElement("button");
+resetButton.classList = "ui button active";
+resetButton.innerText = "Reset";
+resetButton.style = "margin-bottom:2%";
+// resetButton.style.display="none"
+
+//SOME BUTTON
+// let someButton=document.createElement('button')
+// someButton.classList="ui button"
+// someButton.innerText="9"
+
+gridContainer.append(submitInputElement, resetButton);
 
 //TIMER CODE BLOCK
 let theTimer = document.querySelector(".timer"); //also reset button
@@ -410,6 +411,7 @@ function runTimer() {
   timer[1] = Math.floor(timer[3] / 100 - timer[0] * 60); // seconds
   timer[2] = Math.floor(timer[3] - timer[1] * 100 - timer[0] * 6000); //hundredths
 }
+
 gridContainer.addEventListener("click", (event) => {
   // debugger
   let game_level;
@@ -450,9 +452,9 @@ gridContainer.addEventListener("click", (event) => {
     // newGame.style.display="none"
     // gameOn.style.display="block"
     // debugger
-    let submitButton = document.querySelectorAll(".ui.button.active")[3];
+    // let submitButton = document.querySelectorAll(".ui.button.active")[3];
     // console.log(submitButton)
-    let resetButton = document.querySelectorAll(".ui.button.active")[4];
+    // let resetButton = document.querySelectorAll(".ui.button.active")[4];
     // console.log(resetButton)
     // submitButton.style.display="block"
     // resetButton.style.display="block"
@@ -462,12 +464,6 @@ gridContainer.addEventListener("click", (event) => {
 
   if (event.target.tagName === "INPUT" && event.target.type === "submit") {
     event.preventDefault();
-    // submitButton.style.display = "none";
-    clearInterval(interval);
-    userNameForm.style.display = "block";
-    let game_number = parseInt(
-      event.target.parentElement.querySelector("form").id.split("-")[2]
-    );
     // console.log(game_number)
     // console.log(obj)
     // debugger
@@ -490,6 +486,16 @@ gridContainer.addEventListener("click", (event) => {
 
     for (let j = 0; j < 9; j++) {
       outerArray.push(flatArray.slice(9 * j, 9 * j + 9));
+    }
+    if (!falsey(obj1)) {
+      console.log("not falsey");
+      submitInputElement.style.display = "none";
+      // submitButton.style.display = "none";
+      clearInterval(interval);
+      userNameForm.style.display = "block";
+      let game_number = parseInt(
+        event.target.parentElement.querySelector("form").id.split("-")[2]
+      );
     }
 
     // sudokuChecker(outerArray) ? console.log("👎") : console.log(`👍`)
