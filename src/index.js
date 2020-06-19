@@ -120,7 +120,7 @@ let outerArray = [];
 // LOAD GAMES FROM THE SERVER
 
 // fetch('http://localhost:3000/games/random')
-fetch("https://sodukubackendapi.herokuapp.com/games/random")
+fetch("https://mysudokubackendapi.herokuapp.com/games/random")
   .then((response) => response.json())
   .then((gameObject) => {
     formCodeBlock(gameObject, gridContainer);
@@ -428,12 +428,12 @@ gridContainer.addEventListener("click", (event) => {
       event.target.parentElement.querySelector("form").id.split("-")[2]
     );
     // console.dir(event.target.innerText)}
-    fetch(`https://sodukubackendapi.herokuapp.com/games/${game_number}`)
+    fetch(`https://mysudokubackendapi.herokuapp.com/games/${game_number}`)
       .then((response) => response.json())
       .then((gamePuzzle) => {
         game_level = gamePuzzle.difficulty;
         console.log(`return GET: ${gamePuzzle.difficulty}`);
-        fetch("https://sodukubackendapi.herokuapp.com/games", {
+        fetch("https://mysudokubackendapi.herokuapp.com/games", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -512,7 +512,7 @@ gridContainer.addEventListener("click", (event) => {
       // debugger
       // // console.log(gamePuzzle.id)
       let time_elapsed;
-      fetch(`https://sodukubackendapi.herokuapp.com/games/${game_number}`, {
+      fetch(`https://mysudokubackendapi.herokuapp.com/games/${game_number}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -541,7 +541,7 @@ gridContainer.addEventListener("click", (event) => {
         userNameForm.style.display = "none";
         // debugger
         let gamer_name = event.target.querySelector("input").value;
-        fetch(`https://sodukubackendapi.herokuapp.com/scores`, {
+        fetch(`https://mysudokubackendapi.herokuapp.com/scores`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
