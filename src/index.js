@@ -318,6 +318,29 @@ let formCodeBlock = function (gamePuzzle, gridContainer) {
     }
   }
 
+  let submitInputElement = document.createElement("input");
+  submitInputElement.type = "submit";
+  submitInputElement.value = "Submit";
+  submitInputElement.style = "margin-left:10%;margin-bottom:2%;";
+  submitInputElement.classList = "ui button active";
+  submitInputElement.id = "submitId";
+  // submitInputElement.style.display = "block";
+  // let newFormElement=document.querySelector("form")
+  // newFormElement.append(submitInputElement)
+
+  //RESET BUTTON
+  let resetButton = document.createElement("button");
+  resetButton.classList = "ui button active";
+  resetButton.innerText = "Reset";
+  resetButton.style = "margin-bottom:2%"; //margin-left:10%;
+  resetButton.id = "resetId";
+  // resetButton.style.display = "block";
+
+  //SOME BUTTON
+  // let someButton=document.createElement('button')
+  // someButton.classList="ui button"
+  // someButton.innerText="9"
+
   // newFormElement.append(submitInputElement,resetButton)
   subDivElement.append(newFormElement);
   gridContainer.append(
@@ -326,31 +349,10 @@ let formCodeBlock = function (gamePuzzle, gridContainer) {
     // submitInputElement,
     // resetButton
   );
+  gridContainer.append(submitInputElement, resetButton);
   // console.log(gridContainer)
 };
 //SUBMIT BUTTON
-let submitInputElement = document.createElement("input");
-submitInputElement.type = "submit";
-submitInputElement.value = "Submit";
-submitInputElement.style = "margin-left:10%;margin-bottom:2%;";
-submitInputElement.classList = "ui button active";
-// submitInputElement.style.display = "block";
-// let newFormElement=document.querySelector("form")
-// newFormElement.append(submitInputElement)
-
-//RESET BUTTON
-let resetButton = document.createElement("button");
-resetButton.classList = "ui button active";
-resetButton.innerText = "Reset";
-resetButton.style = "margin-bottom:2%";
-// resetButton.style.display="none"
-
-//SOME BUTTON
-// let someButton=document.createElement('button')
-// someButton.classList="ui button"
-// someButton.innerText="9"
-
-gridContainer.append(submitInputElement, resetButton);
 
 //TIMER CODE BLOCK
 let theTimer = document.querySelector(".timer"); //also reset button
@@ -444,6 +446,7 @@ gridContainer.addEventListener("click", (event) => {
           .then((gameObject) => {
             console.log(`return POST: ${gameObject.difficulty}`);
             formCodeBlock(gameObject, gridContainer);
+            document.getElementById("play-game").style.display = "none";
           }); //{formCodeBlock(returnedObject,gridContainer)})
       });
 
@@ -464,6 +467,7 @@ gridContainer.addEventListener("click", (event) => {
 
   if (event.target.tagName === "INPUT" && event.target.type === "submit") {
     event.preventDefault();
+    console.log(event.target.type);
     // console.log(game_number)
     // console.log(obj)
     // debugger
@@ -489,9 +493,10 @@ gridContainer.addEventListener("click", (event) => {
     }
     if (!falsey(obj1)) {
       console.log("not falsey");
-      submitInputElement.style.display = "none";
+      // submitInputElement.style.display = "none";
+
       // submitButton.style.display = "none";
-      console.log(submitInputElement.style.display);
+      // console.log(submitInputElement.style.display);
       clearInterval(interval);
       userNameForm.style.display = "block";
       let game_number = parseInt(
@@ -521,6 +526,9 @@ gridContainer.addEventListener("click", (event) => {
           console.log(gameObject);
           time_elapsed = gameObject.time_elapsed;
           formCodeBlock(gameObject, gridContainer);
+          document.getElementById("play-game").style.display = "none";
+          document.getElementById("submitId").style.display = "none";
+          document.getElementById("resetId").style.display = "none";
         });
       // newGame.style.display='block'
       // event.target.reset()
